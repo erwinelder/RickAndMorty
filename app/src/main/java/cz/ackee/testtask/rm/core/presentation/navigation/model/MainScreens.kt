@@ -1,4 +1,4 @@
-package cz.ackee.testtask.rm.presentation.navigation.model
+package cz.ackee.testtask.rm.core.presentation.navigation.model
 
 import kotlinx.serialization.Serializable
 
@@ -11,7 +11,7 @@ sealed interface MainScreens {
     data object Search : MainScreens
 
     @Serializable
-    data object FavoriteCharacters : MainScreens
+    data object Favorites : MainScreens
 
     @Serializable
     data object CharacterDetail : MainScreens

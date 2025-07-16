@@ -1,14 +1,14 @@
-package cz.ackee.testtask.rm.presentation.theme
+package cz.ackee.testtask.rm.core.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
 sealed class AppPalette(
-    private val primary: Color,
-    private val disabled: Color,
-    private val background: Color,
-    private val surface: Color,
-    private val onSurface: Color,
-    private val outline: Color,
+    val primary: Color,
+    val disabled: Color,
+    val background: Color,
+    val surface: Color,
+    val onSurface: Color,
+    val outline: Color,
 ) {
     data object Light : AppPalette(
         primary = Color(0, 0, 255),

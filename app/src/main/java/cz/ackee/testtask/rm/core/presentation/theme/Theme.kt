@@ -1,4 +1,4 @@
-package cz.ackee.testtask.rm.presentation.theme
+package cz.ackee.testtask.rm.core.presentation.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.BoxWithConstraintsScope
@@ -10,8 +10,8 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.unit.dp
-import cz.ackee.testtask.rm.domain.app.AppTheme
-import cz.ackee.testtask.rm.domain.app.WindowType
+import cz.ackee.testtask.rm.core.domain.app.AppTheme
+import cz.ackee.testtask.rm.core.domain.app.WindowType
 
 val LocalAppTheme = compositionLocalOf { AppTheme.Light }
 val LocalColors = compositionLocalOf<AppPalette> { AppPalette.Light }

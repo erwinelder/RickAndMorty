@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">android-task-rick-and-morty</string>
+
+    <string name="app_name">RickAndMorty</string>
+
+    <string name="characters">Characters</string>
+    <string name="favorites">Favourites</string>
+
 </resources>

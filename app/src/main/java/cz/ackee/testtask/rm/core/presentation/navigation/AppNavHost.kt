@@ -1,19 +1,18 @@
-package cz.ackee.testtask.rm.presentation.navigation
+package cz.ackee.testtask.rm.core.presentation.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import cz.ackee.testtask.rm.presentation.navigation.model.MainScreens
+import cz.ackee.testtask.rm.core.presentation.navigation.model.MainScreens
 
 @Composable
 fun AppNavHost(
     screenPadding: PaddingValues = PaddingValues(),
+    navController: NavHostController,
 ) {
-    val navController = rememberNavController()
-
     NavHost(
         navController = navController,
         startDestination = MainScreens.Characters,
@@ -25,7 +24,7 @@ fun AppNavHost(
         composable<MainScreens.Search> {
 
         }
-        composable<MainScreens.FavoriteCharacters> {
+        composable<MainScreens.Favorites> {
 
         }
         composable<MainScreens.CharacterDetail> {
