@@ -7,6 +7,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -20,15 +21,17 @@ fun BottomNavButtonComponent(
     state: NavButtonState
 ) {
     val color by animateColorAsState(
-        targetValue = if (state.isActive) AppColors.primary else AppColors.onSurface
+        targetValue = if (state.isActive) AppColors.primary else AppColors.disabled
     )
 
-    Column {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Icon(
             painter = painterResource(state.iconRes),
             contentDescription = stringResource(state.nameRes),
             tint = color,
-            modifier = Modifier.size(48.dp)
+            modifier = Modifier.size(32.dp)
         )
         Text(
             text = stringResource(state.nameRes),

@@ -22,7 +22,7 @@ sealed class AppPalette(
         primary = Color(149, 149, 254),
         disabled = Color(93, 93, 94),
         background = Color(24, 24, 25),
-        surface = Color(0, 0, 0, 1),
+        surface = Color(46, 46, 46),
         onSurface = Color(255, 255, 255),
         outline = Color(139, 139, 140),
     )

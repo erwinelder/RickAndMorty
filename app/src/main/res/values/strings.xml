@@ -4,5 +4,16 @@
 
     <string name="characters">Characters</string>
     <string name="favorites">Favourites</string>
+    <string name="search">Search</string>
+    <string name="search_characters">Search characters</string>
+    <string name="no_favourites_yet">No favourites yet</string>
+
+    <string name="name">Name</string>
+    <string name="status">Status</string>
+    <string name="species">Species</string>
+    <string name="type">Type</string>
+    <string name="gender">Gender</string>
+    <string name="origin">Origin</string>
+    <string name="location">Location</string>
 
 </resources>

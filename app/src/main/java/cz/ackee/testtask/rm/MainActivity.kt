@@ -5,7 +5,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.BoxWithConstraints
-import cz.ackee.testtask.rm.core.presentation.component.screenContainer.MainScaffold
+import cz.ackee.testtask.rm.core.presentation.AppContent
 import cz.ackee.testtask.rm.core.presentation.theme.AndroidTaskRickAndMortyTheme
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
                 AndroidTaskRickAndMortyTheme(
                     boxWithConstraintsScope = this
                 ) {
-                    MainScaffold()
+                    AppContent()
                 }
             }
         }

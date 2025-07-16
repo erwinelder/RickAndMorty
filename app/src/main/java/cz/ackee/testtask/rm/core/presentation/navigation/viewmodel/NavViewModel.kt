@@ -8,12 +8,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class NavViewModel : ViewModel() {
+class NavViewModel(
+    isBottomBarVisible: Boolean = true
+) : ViewModel() {
 
     private val _navButtons = MutableStateFlow(NavButtonState.asBottomNavButtonList())
     val navButtons = _navButtons.asStateFlow()
 
-    private val _isBottomBarVisible = MutableStateFlow(true)
+    private val _isBottomBarVisible = MutableStateFlow(isBottomBarVisible)
     val isBottomBarVisible = _isBottomBarVisible.asStateFlow()
 
     private fun updateBottomBar(screen: MainScreens) {
