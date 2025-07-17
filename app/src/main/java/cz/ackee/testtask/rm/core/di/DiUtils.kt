@@ -1,4 +1,4 @@
-package cz.ackee.testtask.rm.di
+package cz.ackee.testtask.rm.core.di
 
 import org.koin.core.context.startKoin
 import org.koin.core.module.Module

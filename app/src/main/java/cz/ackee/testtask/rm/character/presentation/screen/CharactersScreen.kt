@@ -1,4 +1,4 @@
-package cz.ackee.testtask.rm.character.presentation
+package cz.ackee.testtask.rm.character.presentation.screen
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding

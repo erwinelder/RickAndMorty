@@ -6,7 +6,7 @@ import androidx.compose.ui.Alignment
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import cz.ackee.testtask.rm.character.presentation.CharactersScreenWrapper
+import cz.ackee.testtask.rm.character.presentation.screen.CharactersScreenWrapper
 import cz.ackee.testtask.rm.core.presentation.navigation.model.MainScreens
 import cz.ackee.testtask.rm.core.presentation.navigation.viewmodel.NavViewModel
 

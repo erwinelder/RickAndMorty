@@ -9,7 +9,7 @@ import cz.ackee.testtask.rm.core.domain.app.AppTheme
 import cz.ackee.testtask.rm.core.presentation.component.screenContainer.MainScaffold
 import cz.ackee.testtask.rm.core.presentation.navigation.viewmodel.NavViewModel
 import cz.ackee.testtask.rm.core.presentation.theme.AndroidTaskRickAndMortyTheme
-import cz.ackee.testtask.rm.di.initializeKoinMockedModule
+import cz.ackee.testtask.rm.core.di.initializeKoinMockedModule
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.KoinAppDeclaration
