@@ -13,19 +13,25 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cz.ackee.testtask.rm.core.presentation.modifier.bounceClickEffect
+import cz.ackee.testtask.rm.core.presentation.navigation.model.MainScreens
 import cz.ackee.testtask.rm.core.presentation.navigation.model.NavButtonState
 import cz.ackee.testtask.rm.core.presentation.theme.AppColors
 
 @Composable
 fun BottomNavButtonComponent(
-    state: NavButtonState
+    state: NavButtonState,
+    onClick: (MainScreens) -> Unit
 ) {
     val color by animateColorAsState(
         targetValue = if (state.isActive) AppColors.primary else AppColors.disabled
     )
 
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.bounceClickEffect {
+            onClick(state.screen)
+        }
     ) {
         Icon(
             painter = painterResource(state.iconRes),

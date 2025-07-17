@@ -13,6 +13,7 @@ fun AppContent() {
     val navViewModel = koinViewModel<NavViewModel>()
 
     MainScaffold(
+        navController = navController,
         navViewModel = navViewModel
     ) { screenPadding ->
         AppNavHost(

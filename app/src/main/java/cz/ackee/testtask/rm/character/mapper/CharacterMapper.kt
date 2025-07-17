@@ -8,6 +8,7 @@ import cz.ackee.testtask.rm.character.presentation.model.CharacterUiState
 
 fun CharacterDataModel.toDomainModel(): Character {
     return Character(
+        id = id,
         imageUrl = image,
         name = name,
         status = status,
@@ -20,16 +21,19 @@ fun CharacterDataModel.toDomainModel(): Character {
 }
 
 
-fun Character.toUiState(): CharacterUiState {
+fun Character.toUiState(isFavourite: Boolean): CharacterUiState {
     return CharacterUiState(
+        id = id,
         imageUrl = imageUrl,
         name = name,
-        status = status
+        status = status,
+        isFavourite = isFavourite
     )
 }
 
-fun Character.toDetailUiState(): CharacterDetailUiState {
+fun Character.toDetailUiState(isFavourite: Boolean): CharacterDetailUiState {
     return CharacterDetailUiState(
+        id = id,
         imageUrl = imageUrl,
         name = name,
         status = status,
@@ -37,6 +41,7 @@ fun Character.toDetailUiState(): CharacterDetailUiState {
         type = type,
         gender = gender,
         origin = origin,
-        location = location
+        location = location,
+        isFavourite = isFavourite
     )
 }

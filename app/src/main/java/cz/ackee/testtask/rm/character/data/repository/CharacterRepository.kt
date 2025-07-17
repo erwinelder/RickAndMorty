@@ -19,6 +19,8 @@ interface CharacterRepository {
 
     suspend fun getFavouriteCharacters(): ResultData<List<CharacterDataModel>, CharacterError>
 
+    suspend fun getFavouriteCharacterIds(): ResultData<Set<Int>, CharacterError>
+
     suspend fun getCharacterById(id: Int): ResultData<CharacterDataModel, CharacterError>
 
 }

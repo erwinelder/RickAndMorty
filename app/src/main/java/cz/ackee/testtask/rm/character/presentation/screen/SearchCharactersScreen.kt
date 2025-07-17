@@ -1,7 +1,9 @@
 package cz.ackee.testtask.rm.character.presentation.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -9,73 +11,87 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Devices.PIXEL_7_PRO
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import cz.ackee.testtask.rm.R
-import cz.ackee.testtask.rm.character.presentation.component.CharacterComponentFilled
+import cz.ackee.testtask.rm.character.presentation.component.CharacterComponent
 import cz.ackee.testtask.rm.character.presentation.model.CharacterUiState
-import cz.ackee.testtask.rm.character.presentation.viewmodel.CharactersViewModel
+import cz.ackee.testtask.rm.character.presentation.viewmodel.SearchCharactersViewModel
 import cz.ackee.testtask.rm.core.domain.app.AppTheme
 import cz.ackee.testtask.rm.core.presentation.component.container.TopBarContainer
 import cz.ackee.testtask.rm.core.presentation.component.screenContainer.ScreenScaffold
-import cz.ackee.testtask.rm.core.presentation.component.text.TopBarTitle
 import cz.ackee.testtask.rm.core.presentation.navigation.model.MainScreens
 import cz.ackee.testtask.rm.core.presentation.navigation.viewmodel.NavViewModel
 import cz.ackee.testtask.rm.core.presentation.preview.PreviewWithMainScaffoldContainer
 import cz.ackee.testtask.rm.core.presentation.theme.AppColors
+import cz.ackee.testtask.rm.core.presentation.theme.AppTypography
 import kotlinx.coroutines.flow.flowOf
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun CharactersScreenWrapper(
+fun SearchCharactersScreenWrapper(
     screenPadding: PaddingValues = PaddingValues(),
     navController: NavController,
     navViewModel: NavViewModel
 ) {
-    val viewModel = koinViewModel<CharactersViewModel>()
+    val viewModel = koinViewModel<SearchCharactersViewModel>()
 
+    val searchQuery = viewModel.searchQuery.collectAsStateWithLifecycle()
     val characters = viewModel.characters.collectAsLazyPagingItems()
 
-    CharactersScreen(
+    SearchCharactersScreen(
         screenPadding = screenPadding,
-        onSearchButtonClick = {
-            navViewModel.navigateToScreen(
-                navController = navController, screen = MainScreens.Search
-            )
-        },
+        searchQuery = searchQuery.value,
+        onSearchQueryChange = viewModel::onSearchQueryChange,
+        onNavigateBack = navController::popBackStack,
         characters = characters,
         onCharacterClick = { id ->
             navViewModel.navigateToScreen(
                 navController = navController,
-                screen = MainScreens.CharacterDetail(id = id)
+                screen = MainScreens.CharacterDetail(id)
             )
         }
     )
 }
 
 @Composable
-fun CharactersScreen(
+fun SearchCharactersScreen(
     screenPadding: PaddingValues = PaddingValues(),
-    onSearchButtonClick: () -> Unit,
+    searchQuery: String,
+    onSearchQueryChange: (String) -> Unit,
+    onNavigateBack: () -> Unit,
     characters: LazyPagingItems<CharacterUiState>,
     onCharacterClick: (id: Int) -> Unit
 ) {
+    val currentFocus = LocalFocusManager.current
+
     ScreenScaffold(
         screenPadding = screenPadding,
         topBar = {
-            TopBar(onSearchButtonClick = onSearchButtonClick)
+            TopBar(
+                searchQuery = searchQuery,
+                onSearchQueryChange = onSearchQueryChange,
+                onNavigateBack = {
+                    currentFocus.clearFocus()
+                    onNavigateBack()
+                }
+            )
         }
     ) { padding ->
         LazyColumn(
@@ -84,11 +100,12 @@ fun CharactersScreen(
             contentPadding = PaddingValues(vertical = 16.dp),
             modifier = Modifier
                 .padding(padding)
-                .fillMaxWidth()
+                .clickable { currentFocus.clearFocus() }
+                .fillMaxSize()
         ) {
             items(characters.itemCount) { index ->
                 characters[index]?.let { character ->
-                    CharacterComponentFilled(
+                    CharacterComponent(
                         state = character,
                         onClick = onCharacterClick
                     )
@@ -102,16 +119,6 @@ fun CharactersScreen(
                         )
                     }
                 }
-                is LoadState.Error -> {
-                    item {
-                        Text(
-                            text = "Error loading more items",
-                            color = AppColors.onSurface,
-                            fontSize = 18.sp,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-                    }
-                }
                 else -> {}
             }
         }
@@ -120,21 +127,46 @@ fun CharactersScreen(
 
 @Composable
 private fun TopBar(
-    onSearchButtonClick: () -> Unit
+    searchQuery: String,
+    onSearchQueryChange: (String) -> Unit,
+    onNavigateBack: () -> Unit
 ) {
     TopBarContainer(
-        padding = PaddingValues(start = 16.dp, end = 4.dp, top = 4.dp, bottom = 4.dp)
+        padding = PaddingValues(start = 4.dp, end = 16.dp, top = 0.dp, bottom = 0.dp)
     ) {
-        TopBarTitle(text = stringResource(R.string.characters))
         IconButton(
-            onClick = onSearchButtonClick
+            onClick = onNavigateBack
         ) {
             Icon(
-                painter = painterResource(R.drawable.search),
-                contentDescription = stringResource(R.string.search),
+                painter = painterResource(R.drawable.arrow_left),
+                contentDescription = stringResource(R.string.back),
                 tint = AppColors.onSurface
             )
         }
+        TextField(
+            value = searchQuery,
+            onValueChange = onSearchQueryChange,
+            placeholder = {
+                Text(
+                    text = stringResource(R.string.search_characters),
+                    style = AppTypography.field,
+                    color = AppColors.outline
+                )
+            },
+            modifier = Modifier.weight(1f),
+            singleLine = true,
+            textStyle = AppTypography.field,
+            colors = TextFieldDefaults.colors(
+                focusedTextColor = AppColors.onSurface,
+                unfocusedTextColor = AppColors.onSurface,
+                focusedIndicatorColor = AppColors.primary,
+                unfocusedIndicatorColor = Color.Transparent,
+                focusedContainerColor = Color.Transparent,
+                unfocusedContainerColor = Color.Transparent,
+                focusedPlaceholderColor = AppColors.outline,
+                unfocusedPlaceholderColor = AppColors.outline,
+            )
+        )
     }
 }
 
@@ -142,7 +174,7 @@ private fun TopBar(
 
 @Preview(device = PIXEL_7_PRO)
 @Composable
-private fun CharactersScreenPreview() {
+private fun SearchCharactersScreenPreview() {
     val list = listOf(
         CharacterUiState(
             id = 1,
@@ -159,9 +191,11 @@ private fun CharactersScreenPreview() {
     val characters = flowOf(PagingData.from(list)).collectAsLazyPagingItems()
 
     PreviewWithMainScaffoldContainer(appTheme = AppTheme.Light) { screenPadding ->
-        CharactersScreen(
+        SearchCharactersScreen(
             screenPadding = screenPadding,
-            onSearchButtonClick = {},
+            searchQuery = "",
+            onSearchQueryChange = {},
+            onNavigateBack = {},
             characters = characters,
             onCharacterClick = {}
         )

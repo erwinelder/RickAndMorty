@@ -7,6 +7,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import cz.ackee.testtask.rm.character.presentation.screen.CharactersScreenWrapper
+import cz.ackee.testtask.rm.character.presentation.screen.FavouriteCharactersScreenWrapper
+import cz.ackee.testtask.rm.character.presentation.screen.SearchCharactersScreenWrapper
 import cz.ackee.testtask.rm.core.presentation.navigation.model.MainScreens
 import cz.ackee.testtask.rm.core.presentation.navigation.viewmodel.NavViewModel
 
@@ -29,10 +31,18 @@ fun AppNavHost(
             )
         }
         composable<MainScreens.Search> {
-
+            SearchCharactersScreenWrapper(
+                screenPadding = screenPadding,
+                navController = navController,
+                navViewModel = navViewModel
+            )
         }
         composable<MainScreens.Favorites> {
-
+            FavouriteCharactersScreenWrapper(
+                screenPadding = screenPadding,
+                navController = navController,
+                navViewModel = navViewModel
+            )
         }
         composable<MainScreens.CharacterDetail> {
 

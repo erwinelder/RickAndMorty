@@ -1,6 +1,7 @@
 package cz.ackee.testtask.rm.core.presentation.component.screenContainer
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -16,7 +17,9 @@ fun ScreenScaffold(
     Scaffold(
         topBar = topBar,
         containerColor = Color.Transparent,
-        modifier = Modifier.padding(screenPadding)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(screenPadding)
     ) { padding ->
         content(padding)
     }

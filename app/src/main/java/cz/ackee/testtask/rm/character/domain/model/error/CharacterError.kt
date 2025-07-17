@@ -7,4 +7,5 @@ enum class CharacterError : RootError {
     CharacterNotDeleted,
     CharactersNotFetched,
     CharacterNotFetched,
+    FavouriteCharactersNotFetched
 }

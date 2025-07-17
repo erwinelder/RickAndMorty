@@ -11,14 +11,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import cz.ackee.testtask.rm.core.presentation.navigation.model.MainScreens
 import cz.ackee.testtask.rm.core.presentation.navigation.model.NavButtonState
 import cz.ackee.testtask.rm.core.presentation.theme.AppColors
 
 @Composable
 fun BottomNavBar(
     navButtons: List<NavButtonState>,
-    isVisible: Boolean = true
+    isVisible: Boolean = true,
+    bottomPadding: Dp = 0.dp,
+    onClick: (MainScreens) -> Unit
 ) {
     AnimatedVisibility(
         visible = isVisible,
@@ -29,14 +33,22 @@ fun BottomNavBar(
             horizontalArrangement = Arrangement.SpaceEvenly,
             modifier = Modifier
                 .shadow(
-                    elevation = 16.dp
+                    elevation = 8.dp
                 )
                 .background(AppColors.background)
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp, vertical = 8.dp)
+                .padding(
+                    start = 24.dp,
+                    end = 24.dp,
+                    top = 8.dp,
+                    bottom = bottomPadding + 8.dp
+                )
         ) {
             navButtons.forEach { button ->
-                BottomNavButtonComponent(state = button)
+                BottomNavButtonComponent(
+                    state = button,
+                    onClick = onClick
+                )
             }
         }
     }

@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface GetCharactersUseCase {
 
-    suspend fun execute(page: Int): Flow<PagingData<Character>>
+    fun execute(): Flow<PagingData<Character>>
 
 }

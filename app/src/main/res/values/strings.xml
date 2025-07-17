@@ -2,6 +2,7 @@
 
     <string name="app_name">RickAndMorty</string>
 
+    <string name="back">Back</string>
     <string name="characters">Characters</string>
     <string name="favorites">Favourites</string>
     <string name="search">Search</string>

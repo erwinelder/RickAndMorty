@@ -12,7 +12,7 @@ class GetCharactersUseCaseImpl(
     private val repository: CharacterRepository
 ) : GetCharactersUseCase {
 
-    override suspend fun execute(page: Int): Flow<PagingData<Character>> {
+    override fun execute(): Flow<PagingData<Character>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 20,

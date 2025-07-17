@@ -16,8 +16,14 @@ import cz.ackee.testtask.rm.character.domain.usecase.GetCharactersByNameUseCase
 import cz.ackee.testtask.rm.character.domain.usecase.GetCharactersByNameUseCaseImpl
 import cz.ackee.testtask.rm.character.domain.usecase.GetCharactersUseCase
 import cz.ackee.testtask.rm.character.domain.usecase.GetCharactersUseCaseImpl
+import cz.ackee.testtask.rm.character.domain.usecase.GetFavouriteCharacterIdsUseCase
+import cz.ackee.testtask.rm.character.domain.usecase.GetFavouriteCharacterIdsUseCaseImpl
 import cz.ackee.testtask.rm.character.domain.usecase.GetFavouriteCharactersUseCase
 import cz.ackee.testtask.rm.character.domain.usecase.GetFavouriteCharactersUseCaseImpl
+import cz.ackee.testtask.rm.character.presentation.viewmodel.CharactersViewModel
+import cz.ackee.testtask.rm.character.presentation.viewmodel.FavouriteCharactersViewModel
+import cz.ackee.testtask.rm.character.presentation.viewmodel.SearchCharactersViewModel
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val characterModule = module {
@@ -63,8 +69,32 @@ val characterModule = module {
         GetFavouriteCharactersUseCaseImpl(repository = get())
     }
 
+    single<GetFavouriteCharacterIdsUseCase> {
+        GetFavouriteCharacterIdsUseCaseImpl(repository = get())
+    }
+
     single<GetCharacterByIdUseCase> {
         GetCharacterByIdUseCaseImpl(repository = get())
+    }
+
+    /* ---------- View Models ---------- */
+
+    viewModel {
+        CharactersViewModel(
+            getFavouriteCharacterIdsUseCase = get(),
+            getCharactersUseCase = get()
+        )
+    }
+
+    viewModel {
+        SearchCharactersViewModel(
+            getFavouriteCharacterIdsUseCase = get(),
+            getCharactersByNameUseCase = get()
+        )
+    }
+
+    viewModel {
+        FavouriteCharactersViewModel(getFavouriteCharactersUseCase = get())
     }
 
 }

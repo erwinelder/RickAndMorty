@@ -1,6 +1,7 @@
 package cz.ackee.testtask.rm.character.domain.model
 
 data class Character(
+    val id: Int,
     val imageUrl: String,
     val name: String,
     val status: String,

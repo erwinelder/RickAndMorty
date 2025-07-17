@@ -54,8 +54,23 @@ class CharacterRepositoryImpl(
     override suspend fun getFavouriteCharacters(
     ): ResultData<List<CharacterDataModel>, CharacterError> {
         val ids = localSource.getFavoriteCharacters().map { it.id }
+
+        if (ids.isEmpty()) {
+            return ResultData.Success(emptyList())
+        }
+
         return remoteSource.getCharactersByIds(ids = ids).mapData { characters ->
             characters.map { it.toDataModel() }
+        }
+    }
+
+    override suspend fun getFavouriteCharacterIds(): ResultData<Set<Int>, CharacterError> {
+        return try {
+            ResultData.Success(
+                data = localSource.getFavoriteCharacters().map { it.id }.toSet()
+            )
+        } catch (_: Exception) {
+            ResultData.Error(CharacterError.FavouriteCharactersNotFetched)
         }
     }
 

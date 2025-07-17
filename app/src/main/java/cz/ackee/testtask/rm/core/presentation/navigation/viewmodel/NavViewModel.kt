@@ -1,9 +1,11 @@
 package cz.ackee.testtask.rm.core.presentation.navigation.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import cz.ackee.testtask.rm.core.presentation.navigation.model.MainScreens
 import cz.ackee.testtask.rm.core.presentation.navigation.model.NavButtonState
+import cz.ackee.testtask.rm.core.presentation.utils.fromMainScreen
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -26,10 +28,17 @@ class NavViewModel(
         }
         _isBottomBarVisible.update {
             when (screen) {
-                MainScreens.CharacterDetail, MainScreens.Favorites -> false
+                is MainScreens.Search, is MainScreens.CharacterDetail -> false
                 else -> true
             }
         }
+    }
+
+    fun updateBottomBar(backStack: NavBackStackEntry?) {
+        if (backStack == null) return
+        val currScreen = backStack.fromMainScreen() ?: return
+
+        updateBottomBar(screen = currScreen)
     }
 
 
@@ -37,7 +46,6 @@ class NavViewModel(
         navController: NavController,
         screen: MainScreens
     ) {
-        updateBottomBar(screen = screen)
         navController.navigate(screen) {
             launchSingleTop = true
         }

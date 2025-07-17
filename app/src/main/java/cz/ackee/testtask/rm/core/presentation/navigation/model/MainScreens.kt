@@ -14,6 +14,6 @@ sealed interface MainScreens {
     data object Favorites : MainScreens
 
     @Serializable
-    data object CharacterDetail : MainScreens
+    data class CharacterDetail(val id: Int) : MainScreens
 
 }

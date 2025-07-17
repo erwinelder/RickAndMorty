@@ -14,5 +14,10 @@ data class AppCustomTypography(
     val normal: TextStyle = TextStyle(
         textAlign = TextAlign.Center,
         fontSize = 16.sp
-    )
+    ),
+    val field: TextStyle = TextStyle(
+        textAlign = TextAlign.Start,
+        fontSize = 18.sp,
+        fontWeight = FontWeight.W400
+    ),
 )

@@ -44,7 +44,7 @@ class CharacterRemoteDataSourceImpl(
     ): ResultData<List<CharacterDto>, CharacterError> {
         val response = try {
             client.get(
-                urlString = "$apiUrl/characters/?page=$page&name=$name"
+                urlString = "$apiUrl/character/?page=$page&name=$name"
             ) {
                 contentType(ContentType.Application.Json)
             }
@@ -68,7 +68,7 @@ class CharacterRemoteDataSourceImpl(
         val ids = ids.joinToString(separator = ",")
         val response = try {
             client.get(
-                urlString = "$apiUrl/characters/$ids"
+                urlString = "$apiUrl/character/$ids"
             ) {
                 contentType(ContentType.Application.Json)
             }
