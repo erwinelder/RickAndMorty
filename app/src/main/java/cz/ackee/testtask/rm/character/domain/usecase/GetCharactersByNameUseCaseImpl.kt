@@ -1,10 +1,12 @@
 package cz.ackee.testtask.rm.character.domain.usecase
 
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import cz.ackee.testtask.rm.character.data.repository.CharacterRepository
 import cz.ackee.testtask.rm.character.domain.model.Character
-import cz.ackee.testtask.rm.character.domain.model.error.CharacterError
-import cz.ackee.testtask.rm.character.mapper.toDomainModel
-import cz.ackee.testtask.rm.request.domain.model.ResultData
+import cz.ackee.testtask.rm.character.domain.source.CharactersByNamePagingSource
+import kotlinx.coroutines.flow.Flow
 
 class GetCharactersByNameUseCaseImpl(
     private val repository: CharacterRepository
@@ -13,10 +15,16 @@ class GetCharactersByNameUseCaseImpl(
     override suspend fun execute(
         name: String,
         page: Int
-    ): ResultData<List<Character>, CharacterError> {
-        return repository.getCharactersByName(name = name, page = page).mapData { characters ->
-            characters.map { it.toDomainModel() }
-        }
+    ): Flow<PagingData<Character>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                CharactersByNamePagingSource(repository = repository, name = name)
+            }
+        ).flow
     }
 
 }

@@ -78,6 +78,9 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     debugImplementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.ui.tooling.preview)
+    // Paging
+    implementation(libs.paging.runtime.ktx)
+    implementation(libs.paging.compose)
     // Room
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
