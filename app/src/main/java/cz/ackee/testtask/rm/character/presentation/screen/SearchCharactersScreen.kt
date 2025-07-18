@@ -1,11 +1,14 @@
 package cz.ackee.testtask.rm.character.presentation.screen
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
@@ -85,11 +88,15 @@ fun SearchCharactersScreen(
         screenPadding = screenPadding,
         topBar = {
             TopBar(
-                searchQuery = searchQuery,
-                onSearchQueryChange = onSearchQueryChange,
                 onNavigateBack = {
                     currentFocus.clearFocus()
                     onNavigateBack()
+                },
+                searchQuery = searchQuery,
+                onSearchQueryChange = onSearchQueryChange,
+                onClearSearchQuery = {
+                    currentFocus.clearFocus()
+                    onSearchQueryChange("")
                 }
             )
         }
@@ -130,12 +137,13 @@ fun SearchCharactersScreen(
 
 @Composable
 private fun TopBar(
+    onNavigateBack: () -> Unit,
     searchQuery: String,
     onSearchQueryChange: (String) -> Unit,
-    onNavigateBack: () -> Unit
+    onClearSearchQuery: () -> Unit
 ) {
     TopBarContainer(
-        padding = PaddingValues(start = 4.dp, end = 16.dp, top = 0.dp, bottom = 0.dp)
+        padding = PaddingValues(start = 4.dp, end = 4.dp, top = 0.dp, bottom = 0.dp)
     ) {
         IconButton(
             onClick = onNavigateBack
@@ -170,6 +178,25 @@ private fun TopBar(
                 unfocusedPlaceholderColor = AppColors.outline,
             )
         )
+        AnimatedContent(
+            targetState = searchQuery.isNotEmpty()
+        ) { visible ->
+            if (visible) {
+                IconButton(
+                    onClick = onClearSearchQuery
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.x),
+                        contentDescription = stringResource(R.string.clear_search_query),
+                        tint = AppColors.onSurface
+                    )
+                }
+            } else {
+                Spacer(
+                    modifier = Modifier.size(12.dp, 24.dp)
+                )
+            }
+        }
     }
 }
 

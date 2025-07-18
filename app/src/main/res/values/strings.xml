@@ -7,6 +7,7 @@
     <string name="favorites">Favourites</string>
     <string name="search">Search</string>
     <string name="search_characters">Search characters</string>
+    <string name="clear_search_query">Clear search query</string>
     <string name="no_favourites_yet">No favourites yet</string>
 
     <string name="character_image">Character image</string>

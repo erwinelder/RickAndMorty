@@ -12,6 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -19,6 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import cz.ackee.testtask.rm.core.presentation.navigation.component.BottomNavBar
 import cz.ackee.testtask.rm.core.presentation.navigation.viewmodel.NavViewModel
 import cz.ackee.testtask.rm.core.presentation.theme.AppColors
+import cz.ackee.testtask.rm.core.presentation.utils.bottom
 import cz.ackee.testtask.rm.core.presentation.utils.copy
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -32,7 +34,7 @@ fun MainScaffold(
     val navButtons by navViewModel.navButtons.collectAsStateWithLifecycle()
     val isBottomBarVisible by navViewModel.isBottomBarVisible.collectAsStateWithLifecycle()
 
-    val bottomSystemBarPadding = WindowInsets.systemBars.asPaddingValues().calculateBottomPadding()
+    val bottomSystemBarPadding = WindowInsets.systemBars.asPaddingValues().bottom
 
     LaunchedEffect(navBackStackEntry) {
         navViewModel.updateBottomBar(backStack = navBackStackEntry)
@@ -56,7 +58,7 @@ fun MainScaffold(
         modifier = Modifier.fillMaxSize()
     ) { screenPadding ->
         val bottomPadding by animateDpAsState(
-            screenPadding.calculateBottomPadding().coerceAtLeast(bottomSystemBarPadding)
+            (screenPadding.bottom - bottomSystemBarPadding).coerceAtLeast(0.dp)
         )
         val padding = remember(screenPadding, bottomPadding) {
             screenPadding.copy(bottom = bottomPadding)
