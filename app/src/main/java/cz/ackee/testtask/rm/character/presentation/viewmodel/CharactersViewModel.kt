@@ -29,6 +29,7 @@ class CharactersViewModel(
             }
         }
 
+
     init {
         viewModelScope.launch {
             getFavoriteCharacterIdsUseCase.execute().collect { result ->

@@ -103,6 +103,21 @@ dependencies {
     implementation(libs.koin.compose.viewmodel.navigation)
     // Coil
     implementation(libs.coil)
+    // Testing
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
+    androidTestImplementation(libs.turbine)
+    testImplementation(libs.mockk)
+    androidTestImplementation(libs.mockk)
+    testImplementation(libs.paging.testing)
+    androidTestImplementation(libs.paging.testing)
+    androidTestImplementation(libs.ui.test.junit4)
+    androidTestImplementation(libs.androidx.test.ext.junit)
+    testImplementation(libs.slf4j.simple)
 }
 
 tasks.withType<Test> {

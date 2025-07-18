@@ -53,11 +53,9 @@ class SearchCharactersViewModel(
 
     init {
         viewModelScope.launch {
-            viewModelScope.launch {
-                getFavoriteCharacterIdsUseCase.execute().collect { result ->
-                    result.getDataIfSuccess()?.let { characterIds ->
-                        _favouriteCharacterIds.update { characterIds }
-                    }
+            getFavoriteCharacterIdsUseCase.execute().collect { result ->
+                result.getDataIfSuccess()?.let { characterIds ->
+                    _favouriteCharacterIds.update { characterIds }
                 }
             }
         }
