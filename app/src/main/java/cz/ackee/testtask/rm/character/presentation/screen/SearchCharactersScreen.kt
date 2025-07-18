@@ -170,7 +170,7 @@ private fun TopBar(
             colors = TextFieldDefaults.colors(
                 focusedTextColor = AppColors.onSurface,
                 unfocusedTextColor = AppColors.onSurface,
-                focusedIndicatorColor = AppColors.primary,
+                focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent,
                 focusedContainerColor = Color.Transparent,
                 unfocusedContainerColor = Color.Transparent,
