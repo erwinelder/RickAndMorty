@@ -6,6 +6,7 @@ import androidx.compose.ui.Alignment
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import cz.ackee.testtask.rm.character.presentation.screen.CharacterDetailScreenWrapper
 import cz.ackee.testtask.rm.character.presentation.screen.CharactersScreenWrapper
 import cz.ackee.testtask.rm.character.presentation.screen.FavouriteCharactersScreenWrapper
 import cz.ackee.testtask.rm.character.presentation.screen.SearchCharactersScreenWrapper
@@ -44,8 +45,12 @@ fun AppNavHost(
                 navViewModel = navViewModel
             )
         }
-        composable<MainScreens.CharacterDetail> {
-
+        composable<MainScreens.CharacterDetail> { backStack ->
+            CharacterDetailScreenWrapper(
+                screenPadding = screenPadding,
+                navBackStackEntry = backStack,
+                navController = navController
+            )
         }
     }
 }

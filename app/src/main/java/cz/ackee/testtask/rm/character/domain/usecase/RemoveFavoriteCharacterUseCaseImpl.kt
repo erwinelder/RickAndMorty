@@ -4,12 +4,12 @@ import cz.ackee.testtask.rm.character.data.repository.CharacterRepository
 import cz.ackee.testtask.rm.character.domain.model.error.CharacterError
 import cz.ackee.testtask.rm.request.domain.model.ResultData
 
-class DeleteFavouriteCharacterUseCaseImpl(
+class RemoveFavoriteCharacterUseCaseImpl(
     private val repository: CharacterRepository
-) : DeleteFavouriteCharacterUseCase {
+) : RemoveFavoriteCharacterUseCase {
 
     override suspend fun execute(characterId: Int): ResultData<Unit, CharacterError> {
-        return repository.deleteFavouriteCharacter(id = characterId)
+        return repository.deleteFavoriteCharacter(id = characterId)
     }
 
 }

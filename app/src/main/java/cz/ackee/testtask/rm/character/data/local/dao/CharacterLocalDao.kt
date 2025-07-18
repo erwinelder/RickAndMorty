@@ -3,22 +3,22 @@ package cz.ackee.testtask.rm.character.data.local.dao
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
-import cz.ackee.testtask.rm.character.data.local.model.FavouriteCharacterEntity
+import cz.ackee.testtask.rm.character.data.local.model.FavoriteCharacterEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CharacterLocalDao {
 
     @Upsert
-    suspend fun upsertFavouriteCharacter(character: FavouriteCharacterEntity)
+    suspend fun upsertFavoriteCharacter(character: FavoriteCharacterEntity)
 
-    @Query("DELETE FROM favourite_character WHERE id = :id")
-    suspend fun deleteFavouriteCharacter(id: Int)
+    @Query("DELETE FROM favorite_character WHERE id = :id")
+    suspend fun deleteFavoriteCharacter(id: Int)
 
-    @Query("SELECT * FROM favourite_character")
-    fun getFavouriteCharactersAsFlow(): Flow<List<FavouriteCharacterEntity>>
+    @Query("SELECT * FROM favorite_character")
+    fun getFavoriteCharactersAsFlow(): Flow<List<FavoriteCharacterEntity>>
 
-    @Query("SELECT * FROM favourite_character")
-    suspend fun getFavouriteCharacters(): List<FavouriteCharacterEntity>
+    @Query("SELECT * FROM favorite_character")
+    suspend fun getFavoriteCharacters(): List<FavoriteCharacterEntity>
 
 }

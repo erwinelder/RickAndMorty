@@ -6,7 +6,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import androidx.paging.map
 import cz.ackee.testtask.rm.character.domain.usecase.GetCharactersByNameUseCase
-import cz.ackee.testtask.rm.character.domain.usecase.GetFavouriteCharacterIdsUseCase
+import cz.ackee.testtask.rm.character.domain.usecase.GetFavoriteCharacterIdsUseCase
 import cz.ackee.testtask.rm.character.mapper.toUiState
 import cz.ackee.testtask.rm.character.presentation.model.CharacterUiState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class SearchCharactersViewModel(
-    getFavouriteCharacterIdsUseCase: GetFavouriteCharacterIdsUseCase,
+    getFavoriteCharacterIdsUseCase: GetFavoriteCharacterIdsUseCase,
     private val getCharactersByNameUseCase: GetCharactersByNameUseCase
 ) : ViewModel() {
 
@@ -53,8 +53,12 @@ class SearchCharactersViewModel(
 
     init {
         viewModelScope.launch {
-            getFavouriteCharacterIdsUseCase.execute().getDataIfSuccess()?.let { characterIds ->
-                _favouriteCharacterIds.update { characterIds }
+            viewModelScope.launch {
+                getFavoriteCharacterIdsUseCase.execute().collect { result ->
+                    result.getDataIfSuccess()?.let { characterIds ->
+                        _favouriteCharacterIds.update { characterIds }
+                    }
+                }
             }
         }
     }

@@ -68,7 +68,7 @@ class CharacterRemoteDataSourceImpl(
         val ids = ids.joinToString(separator = ",")
         val response = try {
             client.get(
-                urlString = "$apiUrl/character/$ids"
+                urlString = "$apiUrl/character/[$ids]"
             ) {
                 contentType(ContentType.Application.Json)
             }

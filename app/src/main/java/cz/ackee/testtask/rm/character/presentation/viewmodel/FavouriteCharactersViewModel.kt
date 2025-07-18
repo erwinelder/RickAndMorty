@@ -2,29 +2,26 @@ package cz.ackee.testtask.rm.character.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import cz.ackee.testtask.rm.character.domain.usecase.GetFavouriteCharactersUseCase
+import cz.ackee.testtask.rm.character.domain.usecase.GetFavoriteCharactersUseCase
 import cz.ackee.testtask.rm.character.mapper.toUiState
-import cz.ackee.testtask.rm.character.presentation.model.CharacterUiState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.stateIn
 
 class FavouriteCharactersViewModel(
-    private val getFavouriteCharactersUseCase: GetFavouriteCharactersUseCase
+    getFavoriteCharactersUseCase: GetFavoriteCharactersUseCase
 ) : ViewModel() {
 
-    private val _characters = MutableStateFlow<List<CharacterUiState>>(emptyList())
-    val characters = _characters.asStateFlow()
-
-
-    init {
-        viewModelScope.launch {
-            val characters = getFavouriteCharactersUseCase.execute().getDataIfSuccess()
-                ?.map { it.toUiState(isFavourite = true) }
-                ?: emptyList()
-            _characters.update { characters }
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val characters = getFavoriteCharactersUseCase.execute()
+        .mapLatest { result ->
+            result.getDataIfSuccess()?.map { it.toUiState(isFavourite = true) } ?: emptyList()
         }
-    }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
 
 }

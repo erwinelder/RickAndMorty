@@ -3,13 +3,14 @@ package cz.ackee.testtask.rm.character.domain.usecase
 import cz.ackee.testtask.rm.character.data.repository.CharacterRepository
 import cz.ackee.testtask.rm.character.domain.model.error.CharacterError
 import cz.ackee.testtask.rm.request.domain.model.ResultData
+import kotlinx.coroutines.flow.Flow
 
-class AddFavouriteCharacterUseCaseImpl(
+class GetFavoriteCharacterIdsUseCaseImpl(
     private val repository: CharacterRepository
-) : AddFavouriteCharacterUseCase {
+) : GetFavoriteCharacterIdsUseCase {
 
-    override suspend fun execute(characterId: Int): ResultData<Unit, CharacterError> {
-        return repository.addFavouriteCharacter(id = characterId)
+    override suspend fun execute(): Flow<ResultData<Set<Int>, CharacterError>> {
+        return repository.getFavoriteCharacterIdsAsFlow()
     }
 
 }

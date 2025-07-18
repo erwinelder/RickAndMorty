@@ -5,11 +5,11 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import cz.ackee.testtask.rm.character.data.local.dao.CharacterLocalDao
-import cz.ackee.testtask.rm.character.data.local.model.FavouriteCharacterEntity
+import cz.ackee.testtask.rm.character.data.local.model.FavoriteCharacterEntity
 
 @Database(
     entities = [
-        FavouriteCharacterEntity::class
+        FavoriteCharacterEntity::class
     ],
     version = 1,
     exportSchema = true

@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import androidx.paging.map
 import cz.ackee.testtask.rm.character.domain.usecase.GetCharactersUseCase
-import cz.ackee.testtask.rm.character.domain.usecase.GetFavouriteCharacterIdsUseCase
+import cz.ackee.testtask.rm.character.domain.usecase.GetFavoriteCharacterIdsUseCase
 import cz.ackee.testtask.rm.character.mapper.toUiState
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class CharactersViewModel(
-    getFavouriteCharacterIdsUseCase: GetFavouriteCharacterIdsUseCase,
+    getFavoriteCharacterIdsUseCase: GetFavoriteCharacterIdsUseCase,
     getCharactersUseCase: GetCharactersUseCase
 ) : ViewModel() {
 
@@ -31,8 +31,10 @@ class CharactersViewModel(
 
     init {
         viewModelScope.launch {
-            getFavouriteCharacterIdsUseCase.execute().getDataIfSuccess()?.let { characterIds ->
-                _favouriteCharacterIds.update { characterIds }
+            getFavoriteCharacterIdsUseCase.execute().collect { result ->
+                result.getDataIfSuccess()?.let { characterIds ->
+                    _favouriteCharacterIds.update { characterIds }
+                }
             }
         }
     }
