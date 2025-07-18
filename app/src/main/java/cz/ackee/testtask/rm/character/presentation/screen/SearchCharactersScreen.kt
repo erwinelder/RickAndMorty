@@ -107,7 +107,10 @@ fun SearchCharactersScreen(
                 characters[index]?.let { character ->
                     CharacterComponent(
                         state = character,
-                        onClick = onCharacterClick
+                        onClick = {
+                            currentFocus.clearFocus()
+                            onCharacterClick(it)
+                        }
                     )
                 }
             }

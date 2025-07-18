@@ -1,6 +1,7 @@
 package cz.ackee.testtask.rm.character.presentation.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,6 +22,7 @@ fun CharacterComponentFilled(
     onClick: (id: Int) -> Unit
 ) {
     Row(
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
         modifier = Modifier
             .bounceClickEffect { onClick(state.id) }
             .shadow(

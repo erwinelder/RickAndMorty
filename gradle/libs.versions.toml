@@ -16,6 +16,8 @@ room = "2.7.2"
 ktor = "3.2.2"
 # Koin
 koin = "4.1.0"
+# Coil
+coilVersion = "2.7.0"
 # Plugins
 androidGradlePlugin = "8.11.1"
 ksp = "2.2.0-2.0.2"
@@ -63,6 +65,8 @@ koin-android-compat = { group = "io.insert-koin", name = "koin-android-compat" }
 koin-compose = { group = "io.insert-koin", name = "koin-compose" }
 koin-compose-viewmodel = { group = "io.insert-koin", name = "koin-compose-viewmodel" }
 koin-compose-viewmodel-navigation = { group = "io.insert-koin", name = "koin-compose-viewmodel-navigation" }
+# Coil
+coil = { group = "io.coil-kt", name = "coil-compose", version.ref = "coilVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }

@@ -9,6 +9,7 @@
     <string name="search_characters">Search characters</string>
     <string name="no_favourites_yet">No favourites yet</string>
 
+    <string name="character_image">Character image</string>
     <string name="name">Name</string>
     <string name="status">Status</string>
     <string name="species">Species</string>
